@@ -8,6 +8,7 @@ public class playermovement : MonoBehaviour
     private Rigidbody rb;
     private bool grounded = true;
     public float height = 3f;
+    public float jumpspeed = 20f;
     
     void Start()
     {
@@ -48,7 +49,7 @@ public class playermovement : MonoBehaviour
         if(Input.GetKeyDown("space") && grounded) //we make sure we can jump only if we are already on the ground. This prevents double jumps
         {
             
-            rb.velocity = new Vector3(rb.velocity.x, 20f, 0) ;
+            rb.velocity = new Vector3(rb.velocity.x, jumpspeed, 0) ;
             grounded = false;
         }
         if(transform.position.y >= height && !grounded)//we set a certain height to which our player can jump

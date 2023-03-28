@@ -7,6 +7,7 @@ public class spawner : MonoBehaviour
     private float t = 0f;
     public GameObject[] obj;
     private int rand;
+    int prevrand;
 
     void Update()
     {
@@ -15,7 +16,11 @@ public class spawner : MonoBehaviour
         if (t>=1.5)     
         {
             rand = Random.Range(0, obj.Length); //To randomly choose an object in our array of obstacles
-            
+            if(rand == prevrand)
+            {
+                rand = Random.Range(0, obj.Length);
+            }
+            prevrand = rand;
             if (obj[rand].tag == "mid")
             {
                 //The instantiate function spawns an object in a specified position and orientation. 
