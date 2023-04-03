@@ -9,11 +9,13 @@ public class playermovement : MonoBehaviour
     private bool grounded = true;
     public float height = 3f;
     public float jumpspeed = 20f;
+    public Animator anim;
     
     void Start()
     {
         
         rb = GetComponent<Rigidbody>();
+        anim = GetComponentInChildren<Animator>();
         
     }
 
@@ -30,25 +32,28 @@ public class playermovement : MonoBehaviour
             
             rb.velocity = new Vector3(0f, rb.velocity.y, -speed);
             
+
         }
         else if(Input.GetKey("d"))
         {
             rb.velocity = new Vector3(0f, rb.velocity.y, speed);
-
             
+
         }
 
 
         if(!Input.GetKey("a") && !Input.GetKey("d"))
         {
             rb.velocity = new Vector3(0f, rb.velocity.y, 0f);
+            
         }
     }
     private void Update()
     {
+        anim.SetFloat("x", Input.GetAxis("Horizontal"));
         if(Input.GetKeyDown("space") && grounded) //we make sure we can jump only if we are already on the ground. This prevents double jumps
         {
-            
+            anim.SetBool("jump", true);
             rb.velocity = new Vector3(rb.velocity.x, jumpspeed, 0) ;
             grounded = false;
         }
@@ -59,7 +64,7 @@ public class playermovement : MonoBehaviour
         }
         if(rb.velocity.y == 0)//when the player reaches the ground again, our y velocity is 0. Now we should be able to jump again
         {
-            
+            anim.SetBool("jump", false);
             grounded = true;
         }
         

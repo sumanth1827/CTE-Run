@@ -5,16 +5,28 @@ using UnityEngine;
 public class obstacles : MonoBehaviour
 {
     Rigidbody rb;
-    public float speed = 1f;
+    Animator anim2;
    
     void Start()
     {
-        rb = GetComponent<Rigidbody>(); 
+        rb = GetComponent<Rigidbody>();
+        anim2 = GameObject.Find("Canvas").GetComponent<Animator>();
+        
     }
 
     
     void FixedUpdate()
     {
-        rb.velocity = new Vector3(speed, 0f, 0f);
+        rb.velocity = new Vector3(GetComponentInParent<spawner>().speeds, 0f, 0f);
+    }
+    private void OnTriggerEnter(Collider ci)
+    {
+        if(ci.tag == "Player")
+        {
+            ci.GetComponentInChildren<Animator>().SetBool("die", true);
+            GetComponentInParent<spawner>().speeds = 0f;
+            anim2.SetBool("death", true);
+            GetComponentInParent<spawner>().spawns = false;
+        }
     }
 }
