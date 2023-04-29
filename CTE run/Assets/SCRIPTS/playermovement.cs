@@ -10,6 +10,7 @@ public class playermovement : MonoBehaviour
     public float height = 3f;
     public float jumpspeed = 20f;
     public Animator anim;
+    public AudioSource jumps;
     
     void Start()
     {
@@ -53,6 +54,7 @@ public class playermovement : MonoBehaviour
         anim.SetFloat("x", Input.GetAxis("Horizontal"));
         if(Input.GetKeyDown("space") && grounded) //we make sure we can jump only if we are already on the ground. This prevents double jumps
         {
+            jumps.Play();
             anim.SetBool("jump", true);
             rb.velocity = new Vector3(rb.velocity.x, jumpspeed, 0) ;
             grounded = false;

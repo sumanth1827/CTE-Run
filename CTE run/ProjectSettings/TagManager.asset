@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - mid
+  - base
   layers:
   - Default
   - TransparentFX

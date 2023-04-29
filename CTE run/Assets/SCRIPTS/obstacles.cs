@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class obstacles : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class obstacles : MonoBehaviour
    
     void Start()
     {
+        
         rb = GetComponent<Rigidbody>();
         anim2 = GameObject.Find("Canvas").GetComponent<Animator>();
         
@@ -25,8 +27,16 @@ public class obstacles : MonoBehaviour
         {
             ci.GetComponentInChildren<Animator>().SetBool("die", true);
             GetComponentInParent<spawner>().speeds = 0f;
+
             anim2.SetBool("death", true);
-            GetComponentInParent<spawner>().spawns = false;
+            StartCoroutine(test());
+            //GetComponentInParent<spawner>().spawns = false;
         }
+    }
+    IEnumerator test()
+    {
+        yield return new WaitForSeconds(4f);
+        
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
